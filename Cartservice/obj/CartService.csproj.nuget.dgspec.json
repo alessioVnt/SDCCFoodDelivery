@@ -1,0 +1,93 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/alessio/Scrivania/sdccFoodDelivery/Cartservice/CartService.csproj": {}
+  },
+  "projects": {
+    "/home/alessio/Scrivania/sdccFoodDelivery/Cartservice/CartService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/alessio/Scrivania/sdccFoodDelivery/Cartservice/CartService.csproj",
+        "projectName": "CartService",
+        "projectPath": "/home/alessio/Scrivania/sdccFoodDelivery/Cartservice/CartService.csproj",
+        "packagesPath": "/home/alessio/.nuget/packages/",
+        "outputPath": "/home/alessio/Scrivania/sdccFoodDelivery/Cartservice/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/alessio/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.11.4, )"
+            },
+            "Google.Protobuf.Tools": {
+              "target": "Package",
+              "version": "[3.5.1, )"
+            },
+            "Grpc": {
+              "target": "Package",
+              "version": "[2.23.0, )"
+            },
+            "Grpc.Tools": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.23.0, )"
+            },
+            "Json.Net": {
+              "target": "Package",
+              "version": "[1.0.22, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.1.39, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
