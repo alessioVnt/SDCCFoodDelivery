@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kitchenservice
+spec:
+  selector:
+    matchLabels:
+      app: kitchenservice
+  template:
+    metadata:
+      labels:
+        app: kitchenservice
+    spec:
+      containers:
+      - name: server
+        image: kitchenservice
+        ports:
+        - containerPort: 50051
+        env:
+        - name: KAFKA_PORT
+          value: "9092"
+        - name: KAFKA_ADDR
+          value: "kafka"
+        resources:
+          requests:
+            cpu: 200m
+            memory: 180Mi
+          limits:
+            cpu: 300m
+            memory: 300Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kitchenservice
+spec:
+  type: ClusterIP
+  selector:
+    app: kitchenservice
+  ports:
+  - name: grpc
+    port: 50051
+    targetPort: 50051

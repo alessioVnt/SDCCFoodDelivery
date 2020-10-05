@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkoutservice
+spec:
+  selector:
+    matchLabels:
+      app: checkoutservice
+  template:
+    metadata:
+      labels:
+        app: checkoutservice
+    spec:
+      containers:
+      - name: server
+        image: checkoutservice
+        ports:
+        - containerPort: 5050
+        env:
+        - name: PORT
+          value: "5050"
+        resources:
+          requests:
+            cpu: 200m
+            memory: 180Mi
+          limits:
+            cpu: 300m
+            memory: 300Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkoutservice
+spec:
+  type: ClusterIP
+  selector:
+    app: checkoutservice
+  ports:
+  - name: grpc
+    port: 5050
+    targetPort: 5050

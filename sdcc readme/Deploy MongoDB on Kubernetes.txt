@@ -1,0 +1,38 @@
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+To deploy:
+
+ helm install mongo bitnami/mongodb
+
+To delete:
+
+ helm uninstall mongo
+
+
+MongoDB can be accessed via port 27017 on the following DNS name(s) from within your cluster:
+
+    mongo-mongodb.default.svc.cluster.local
+
+To get the root password run:
+
+    export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongo-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
+
+To connect to your database from outside the cluster execute the following commands:
+
+    kubectl port-forward --namespace default svc/mongo-mongodb 27017:27017 &
+    mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
+
+
+To attach to pod and get inside the DB:
+
+ kubectl exec --stdin --tty mongo-mongodb-codicedinamico -- /bin/bash
+
+mongo -u root -p <password> --authenticationDatabase admin  
+
+show dbs
+
+use databaseName
+
+show collections;
+
+db.<collectionName>.find();

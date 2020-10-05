@@ -1,0 +1,50 @@
+gcloud services enable container.googleapis.com
+
+creazione cluster: 
+gcloud container clusters create demo --enable-autoupgrade \
+    --enable-autoscaling --min-nodes=3 --max-nodes=10 --num-nodes=5 --zone=us-central1-a
+
+gcloud services enable containerregistry.googleapis.com
+
+gcloud auth configure-docker -q
+
+--Creare una repo agganciata al progetto clonarla in locale, pushare e clonarla nella cloudshell del cluster.
+
+HBASE:
+
+helm repo add gradiant https://gradiant.github.io/charts
+
+helm install hbase gradiant/hbase
+
+KAFKA:
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm install my-release bitnami/kafka
+
+MONGODB:
+
+ helm repo add bitnami https://charts.bitnami.com/bitnami
+ 
+ helm install mongo bitnami/mongodb --set auth.rootPassword=admin
+
+Other persistences:
+
+ skaffold run -f skaffoldpersistences.yml  
+
+Services:
+
+ skaffold run -f skaffoldservices.yml  --default-repo=gcr.io/sdccfooddeliveryk8s
+
+Load generator:
+
+ skaffold run -f skaffoldtest.yml --default-repo=gcr.io/sdccfooddeliveryk8s
+
+
+TO SHUT DOWN:
+
+helm delete my-release
+
+helm delete hbase 
+
+skaffold delete

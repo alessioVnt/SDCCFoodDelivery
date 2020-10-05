@@ -1,0 +1,10 @@
+104.198.68.112   ip riservato sotto il nome sdccfooddelivery-ip 
+
+per crearlo:   gcloud compute addresses create sdccfooddelivery-ip  --region us-central1
+per leggerlo:  gcloud compute addresses describe sdccfooddelivery-ip --region us-central1
+
+ports:
+  - port: 80
+    targetPort: 8080
+  type: LoadBalancer
+  loadBalancerIP: "YOUR.IP.ADDRESS.HERE"

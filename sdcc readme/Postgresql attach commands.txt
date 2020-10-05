@@ -1,0 +1,16 @@
+kubectl exec -it [NOME_POD]  --  bash
+
+psql -U postgres -W
+
+\l per la lista dei db
+
+\c [nome db]   per collegarsi al db
+
+\dt per la lista delle tabelle
+
+per eseguire query ad esempio:
+
+select * from [nome] vai a capo
+;  vai a capo per eseguire la query
+
+
