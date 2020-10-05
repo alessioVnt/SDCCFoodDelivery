@@ -1,0 +1,12 @@
+package constants;
+
+public enum StateEnum {
+    PENDING,
+    PAYMENT_ACCEPTED,
+    PAYMENT_DENIED,
+    KITCHEN_ACCEPTED,
+    KITCHEN_REFUSED,
+    APPROVED,
+    REJECTED,
+    PAYMENT_ROLLBACK_SUCCESS
+}
