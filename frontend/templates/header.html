@@ -1,0 +1,46 @@
+{{ define "header" }}
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+        <title>SDCC - Food Delivery App</title>
+
+        <!-- CSS  -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="../static/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link href="../static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    </head>
+    <body>
+    <nav>
+        <div class="nav-wrapper red darken-1">
+            <a href="http://104.198.68.112:80/" class="brand-logo">Food delivery</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="http://104.198.68.112:80/restaurantsPage">Restaurants</a></li>
+                <li><a href="http://104.198.68.112:80/cartPage">Cart</a></li>
+                <li><a href="http://104.198.68.112:80/userProfile">My profile</a></li>
+                <li><a onclick="logOut()">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="http://104.198.68.112:80/restaurantsPage">Restaurants</a></li>
+        <li><a href="http://104.198.68.112:80/cartPage">Cart</a></li>
+        <li><a href="http://104.198.68.112:80/userProfile">My profile</a></li>
+        <li><a onclick="logOut()">Log out</a></li>
+    </ul>
+
+    <script>
+        const logOut = async () => {
+            if (confirm("Are you sure you want to logout?")){
+                const response = await fetch('http://104.198.68.112:80/logOut');
+                location.href = "http://104.198.68.112:80/"
+            }
+        }
+    </script>
+    </body>
+
+
+{{end}}

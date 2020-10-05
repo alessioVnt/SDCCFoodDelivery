@@ -1,0 +1,103 @@
+{{ define "home" }}
+
+    {{ if eq ($.logged) false }}
+        {{ template "headerNotLogged" . }}
+    {{ else }}
+        {{ template "header" . }}
+    {{ end }}
+
+    <body>
+
+    <div class="section no-pad-bot" id="index-banner">
+        {{ if eq ($.logged) false }}
+            <div class="container">
+
+                <div class="white-text" style="padding-top: 20px">A</div>
+
+                <div class="row center" style="text-align:center; margin:0 auto;">
+                    <div class="input-field col s6" style="display:inline-block; vertical-align: middle; float: none;">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="mail-box" type="email" class="validate">
+                        <label for="mail-box">Email</label>
+                    </div>
+                </div>
+                <div class="row center" style="text-align:center; margin:0 auto;">
+                    <div class="input-field col s6" style="display:inline-block; vertical-align: middle; float: none;">
+                        <i class="material-icons prefix">lock</i>
+                        <input id="password-box" type="password" class="validate">
+                        <label for="password-box">Password</label>
+                    </div>
+                </div>
+                <div class="row center" style="text-align:center; margin:0 auto;">
+                    <a class="waves-effect waves-light red btn" onclick="logIn(document.getElementById('mail-box').value, document.getElementById('password-box').value)">Log in</a>
+                </div>
+
+                <br><br>
+                <div class="row center">
+                    <span>Don't have an account? <a class="blue-text" href="http://104.198.68.112:80/registrationPage" style="cursor: pointer">Sing up now!</a></span>
+                </div>
+            </div>
+        {{ else }}
+            <div class="container">
+                <br><br>
+                <h1 class="header center red-text">FOOD DELIVERY APP</h1>
+                <div class="row center">
+                    <h5 class="header col s12 light">A modern micro services developed food delivery app</h5>
+                </div>
+                <div class="row center">
+                    <h5 class="header col s12 light">Welcome {{ $.userName }}</h5>
+                </div>
+                <div class="row center" style="text-align:center; margin:0 auto;">
+                    <h5 class="header col s12 light">Here are some recommendations just for you!</h5>
+                    <ul class="collection center col s6" style="display:inline-block; vertical-align: middle; float: none;">
+                        {{ range $.recommendations }}
+                            <li class="collection-item black-text" ><h6 style="cursor: pointer" onclick="goToRec({{ .Name }})">{{.Name}}</h6></li>
+                        {{ end }}
+                    </ul>
+                </div>
+
+                <br><br>
+
+            </div>
+        {{ end }}
+    </div>
+
+    <script>
+        function goToRec(recName){
+            var value = recName.toString().replaceAll('"', "")
+            location.href = "http://104.198.68.112:80/restaurantsPage?name=" + value
+        }
+        document.getElementById("mail-box").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                logIn(document.getElementById('mail-box').value, document.getElementById('password-box').value)
+            }
+        })
+        document.getElementById("password-box").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                logIn(document.getElementById('mail-box').value, document.getElementById('password-box').value)
+            }
+        })
+        const logIn = async (mail, password) => {
+            if (mail === "" || password === "") M.toast({html: "Invalid input!"})
+            const response = await fetch('http://104.198.68.112:80/logIn', {
+                method: 'POST',
+                body: '{' +
+                    '"mail" : "' + mail + '",' +
+                    '"password" : "' + password + '"' +
+                    '}', // string or object
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 202) location.reload()
+            else M.toast({html: "Wrong mail or password!", classes:"my-toast"})
+        }
+    </script>
+
+    </body>
+
+    {{ template "footer" . }}
+
+{{ end }}

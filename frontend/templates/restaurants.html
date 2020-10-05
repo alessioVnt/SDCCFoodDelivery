@@ -1,0 +1,58 @@
+{{ define "restaurants" }}
+
+    {{ template "header" . }}
+
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <p id="demo" class="col s3"></p>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">search</i>
+                    <input id="search_box" type="text" class="validate">
+                    <label for="search_box">Search a restaurant</label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="h-grid py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                {{ range $.restaurants }}
+                    <div class="col s12 m6">
+                        <div class="card red" >
+                            <div class="card-content white-text">
+                                <span class="card-title">{{.Name}}</span>
+                                <p>City: {{.City}}</p>
+                                <p>Address: {{.Address}}</p>
+                            </div>
+                            <div class="card-action white-text">
+                                <a class="btn white red-text" href="http://104.198.68.112:80/restaurantDetails?id={{ .Id }}">Browse menu</a>
+                                <a class="btn white red-text" onclick="addToPref({{$.userId}}, {{ .Name }})">Add to preferred</a>
+                            </div>
+                        </div>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+
+    <div class="white-text" style="padding-top: 40px">A</div>
+
+    <script>
+        document.getElementById("search_box").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                location.href = "http://104.198.68.112:80/restaurantsPage?name=" + document.getElementById("search_box").value
+            }
+        })
+        const addToPref = async (id, newPref) => {
+            const response = await fetch('http://104.198.68.112:80/updatePreferences?id=' + id + '&newPreference=' + newPref.toString().replaceAll(" ", "%20").replaceAll("'", "\'").replaceAll("&", "%26"));
+            if (response.status === 202) M.toast({html: "Restaurant added to your preferences!", classes: "my-toast"})
+            else M.toast({html: "Restaurant couldn't be added to your preferences", classes:"my-toast"})
+        }
+    </script>
+
+    {{ template "footer" . }}
+
+{{ end }}

@@ -1,0 +1,50 @@
+{{ define "cart" }}
+
+    {{ template "header" . }}
+
+    <div class="container">
+        {{ if eq (len $.items) 0 }}
+            <h3 class="center red-text">Your shopping cart is empty!</h3>
+            <p class="center">Items you add to your shopping cart will appear here.</p>
+        {{ else }}
+            <div class="row"><h3 class="header red-text">{{ $.restaurantName }}</h3></div>
+            <ul class="collection">
+                {{ range $.items }}
+                    <li class="collection-item">
+                        <span class="title">{{ .Name }}</span>
+                        <p>{{ .Price }}€ <br>
+                            {{ .Quantity }}
+                        </p>
+                    </li>
+                {{ end }}
+            </ul>
+            <div class="row"><h5>Total: {{ $.totalPrice }}€</h5></div>
+            <div class="container center">
+                <a class="waves-light red btn" onclick="emptyCart({{$.userId}})" > Empty cart </a>
+                <a class="waves-light red btn" onclick="confirmCheckout({{$.userId}})"> Checkout </a>
+            </div>
+            <div class="white-text" style="padding-top: 40px">A</div>
+        {{ end }}
+    </div>
+
+    <script>
+        const emptyCart = async (userId) => {
+            const response = await fetch('http://104.198.68.112:80/emptyCart?id=' + userId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            location.reload();
+        }
+        function confirmCheckout(userId){
+            check = confirm("Are you sure you want to checkout this order?")
+            if (check === true) {
+                location.href = "http://104.198.68.112:80/checkoutPage?id=" + userId
+            }
+        }
+    </script>
+
+    {{ template "footer" . }}
+
+{{ end }}

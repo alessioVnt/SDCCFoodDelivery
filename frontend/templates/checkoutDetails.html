@@ -1,0 +1,30 @@
+{{ define "checkoutDetails" }}
+
+    {{ template "header" . }}
+
+    <main>
+        <div class="container">
+            {{ if eq $.transactionResult true}}
+                <div class="row"><h1 class="header center green-text">Order accepted</h1></div>
+                <div class="row"><h3 class="header red-text">{{ $.restaurantName }}</h3></div>
+                <ul class="collection">
+                    {{ range $.items }}
+                        <li class="collection-item">
+                            <h6 class="title text-darken-3">{{ .Name }}</h6>
+                            <p>Price: {{ .Price }}€ <br>
+                                Qty: x{{ .Quantity }}
+                            </p>
+                        </li>
+                    {{ end }}
+                </ul>
+                <div class="row"><h5>Total: {{ $.totalPrice }}€</h5></div>
+                <div class="row"><h5>Your order will be delivered to: {{ $.userAddress }}</h5></div>
+            {{ else }}
+                <h1 class="header center red-text">Order refused</h1>
+                <div class="row center"> <a class="btn waves-light red white-text" href="http://104.198.68.112:80/checkoutPage?id={{ $.userID}}">Retry</a></div>
+            {{ end }}
+        </div>
+    </main>
+    {{ template "footer" . }}
+
+{{ end }}

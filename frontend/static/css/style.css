@@ -1,0 +1,12 @@
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.my-toast{
+    background-color: red;
+    border-radius: 25px;
+}
