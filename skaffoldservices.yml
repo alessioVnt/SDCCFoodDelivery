@@ -1,0 +1,43 @@
+apiVersion: skaffold/v1beta2
+kind: Config
+build:
+  artifacts:
+  - image: restaurantservice
+    context: ./RestaurantService
+  - image: frontend
+    context: ./frontend
+  - image: cartservice
+    context: ./Cartservice
+  - image: checkoutservice
+    context: ./CheckOutService
+  - image: kitchenservice
+    context: ./SDCC_kitchen_service
+  - image: mailservice
+    context: ./sdcc_mail_service
+  - image: paymentservice
+    context: ./SDCC_payment_service
+  - image: recommendationservice
+    context: ./sdcc_recommendation_service
+  - image: userservice
+    context: ./sdcc_user_service
+  tagPolicy:
+    gitCommit: {}
+deploy:
+  kubectl:
+    manifests:
+    - ./kubernetes-manifests/**.yaml
+profiles:
+# "gcb" profile allows building and pushing the images
+# on Google Container Builder without requiring docker
+# installed on the developer machine. However, note that
+# since GCB does not cache the builds, each build will
+# start from scratch and therefore take a long time.
+#
+# This is not used by default. To use it, run:
+#     skaffold run -p gcb
+- name: gcb
+  build:
+    googleCloudBuild:
+      diskSizeGb: 300
+      machineType: N1_HIGHCPU_32
+      timeout: 4000s
